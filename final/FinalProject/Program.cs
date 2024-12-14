@@ -21,42 +21,30 @@ class Program
         Console.WriteLine("3. List your pets.");
         int mainMenuChoice = int.Parse(Console.ReadLine());
 
+
+       
         switch (mainMenuChoice)
         {
             case 1: //create new Pet
-                Console.WriteLine("Choose the type of pet you want to create.");
-                Console.WriteLine("1. Dog");
-                Console.WriteLine("2. Cat");
-                Console.WriteLine("3. Bird");
-                Console.WriteLine("4. Hamster");
-                Console.WriteLine("5. Fish");
-                Console.Write("Choose a type: ");
-                strType = Console.ReadLine();
-                switch (strType)
-                {
-                    case "1":
-                        strType = "dog";
-                        break;
-                    case "2":
-                        strType  = "cat";
-                        break;
-                    case "3":
-                        strType  = "bird";
-                        break;
-                    case "4":
-                        strType  = "hamster";
-                        break;
-                    case "5":
-                        strType  = "fish";
-                        break;
-                    default:
-                        break;
+                Console.WriteLine("Create a new pet.");
+                List<string> listTypes = new List<string> {"Dog", "Cat", "Bird", "Hamster", "Fish"};
+                Console.WriteLine("Choose a type: ");
 
+                for (int idx = 0; idx < listTypes.Count; idx++){
+                    Console.WriteLine(idx+1 + ". " + listTypes[idx]);
                 }
-                Console.WriteLine($"What is the name of your {strType}? ");
+
+                strType = Console.ReadLine();
+                strType = listTypes[int.Parse(strType)-1].ToLower();
+                Console.Write("What is the name of your " + strType +"?");                                            
+               
                 strInName = Console.ReadLine();
                 Console.Write($"What color is {strInName}: ");
                 strInColor = Console.ReadLine();
+                
+                break;
+
+            default:
                 break;
 
            // case 2:
