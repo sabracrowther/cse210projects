@@ -1,4 +1,5 @@
 using System;
+using System.Reflection.PortableExecutable;
 
 class Program
 {
@@ -7,112 +8,101 @@ class Program
         string strType = "";
         string strInName = "";
         string strInColor = "";
-        string makeNoise = "";
+        
         Animation animation = new Animation();
-        Pet pet = new Pet();
+        List<Pet> petList = new List<Pet>();
         // List<string> strList;   //use for any list of strings as needed
         
         //Explain what you can do: e.g. This program allows you to create a pet and interact with it. By interacting with it you get points.
         
         //Menu
-        Console.WriteLine("Create a new pet.");
-        Console.WriteLine("1. Dog");
-        Console.WriteLine("2. Cat");
-        Console.WriteLine("3. Bird");
-        Console.WriteLine("4. Hamster");
-        Console.WriteLine("5. Fish");
-        Console.Write("Choose a type: ");
-        strType = Console.ReadLine();
-        switch (strType)
+        Console.WriteLine("1. Create a new pet.");
+        Console.WriteLine("2. Interact with your pet");
+        Console.WriteLine("3. List your pets.");
+        int mainMenuChoice = int.Parse(Console.ReadLine());
+
+        switch (mainMenuChoice)
         {
-            case "1":
-                Console.Write($"What is the name of your dog? ");
+            case 1: //create new Pet
+                Console.WriteLine("Choose the type of pet you want to create.");
+                Console.WriteLine("1. Dog");
+                Console.WriteLine("2. Cat");
+                Console.WriteLine("3. Bird");
+                Console.WriteLine("4. Hamster");
+                Console.WriteLine("5. Fish");
+                Console.Write("Choose a type: ");
+                strType = Console.ReadLine();
+                switch (strType)
+                {
+                    case "1":
+                        strType = "dog";
+                        break;
+                    case "2":
+                        strType  = "cat";
+                        break;
+                    case "3":
+                        strType  = "bird";
+                        break;
+                    case "4":
+                        strType  = "hamster";
+                        break;
+                    case "5":
+                        strType  = "fish";
+                        break;
+                    default:
+                        break;
+
+                }
+                Console.WriteLine($"What is the name of your {strType}? ");
+                strInName = Console.ReadLine();
+                Console.Write($"What color is {strInName}: ");
+                strInColor = Console.ReadLine();
                 break;
-            case "2":
-                Console.Write($"What is the name of your cat? ");
-                break;
-            case "3":
-                Console.Write($"What is the name of your bird? ");
-                break;
-            case "4":
-                Console.Write($"What is the name of your hamster? ");
-                break;
-            case "5":
-                Console.Write($"What is the name of your fish? ");
-                break;
-            default:
-                break;
+
+           // case 2:
+
 
         }
        
-        strInName = Console.ReadLine();
-        Console.Write($"What color is {strInName}: ");
-        strInColor = Console.ReadLine();
-
-        List<Pet> petList = new List<Pet>();
+    
                
-        switch (int.Parse(strType)){
-            case 1:     //dog
-                Dog dog = new Dog(strInName, strInColor);
-                makeNoise = animation.RandomTalkBack(dog.Vocalizations);
-                petList.Add(dog);
-                Console.WriteLine($"\n'{makeNoise}' - {dog.GetPetInfo()}");
-                animation.MenuIO(dog);
+        switch (strType){
+            case "dog":     //dog
+                Dog dog = new Dog(strInName, strInColor);                
+                petList.Add(dog);                
                 break;
-            case 2:     //cat
-                Cat cat = new Cat(strInName, strInColor);
-                makeNoise = animation.RandomTalkBack(cat.Vocalizations);
-                petList.Add(cat);
-                Console.WriteLine($"\n'{makeNoise}' - {cat.GetPetInfo()}");
-                animation.MenuIO(cat);
+            case "cat":     //cat
+                Cat cat = new Cat(strInName, strInColor);               
+                petList.Add(cat);               
                 break;
-            case 3:     //bird
-                Bird bird = new Bird(strInName, strInColor);
-                makeNoise = animation.RandomTalkBack(bird.Vocalizations);
-                petList.Add(bird);
-                Console.WriteLine($"\n'{makeNoise}' - {bird.GetPetInfo()}");
-                animation.MenuIO(bird);
+            case "bird":     //bird
+                Bird bird = new Bird(strInName, strInColor);                
+                petList.Add(bird);                 
                 break;
-            case 4:     //hamster
-                Hamster hamster = new Hamster(strInName, strInColor);
-                makeNoise = animation.RandomTalkBack(hamster.Vocalizations);
-                petList.Add(hamster);
-                Console.WriteLine($"\n'{makeNoise}' - {hamster.GetPetInfo()}");
-                animation.MenuIO(hamster);
+            case "hamster":     //hamster
+                Hamster hamster = new Hamster(strInName, strInColor);               
+                petList.Add(hamster);                 
                 break;
-            case 5:     //fish
-                Fish fish = new Fish(strInName, strInColor);
-                 makeNoise = animation.RandomTalkBack(fish.Vocalizations);
-                petList.Add(fish);
-                Console.WriteLine($"\n'{makeNoise}' - {fish.GetPetInfo()}");
-                animation.MenuIO(fish);
+            case "fish":     //fish
+                Fish fish = new Fish(strInName, strInColor);                 
+                petList.Add(fish);                  
                 break;
             default:
                 //do something
                 break;
         }//end switch
 
-        
-
-
-
-        // Prompts prompts = new Prompts(); // create a new Prompts object
-        
-        // string prompt = prompts.GetRandomPrompt();  // get random prompt
-        // Console.WriteLine(prompt);   // display random prompt
-        // string _entryInput = Console.ReadLine();  //save new entry 
-
-        // Entry newEntry = new Entry
-        // {
-        //     _date = DateOnly.FromDateTime(DateTime.Now),
-        //     _prompt = prompt,
-        //     _entry = _entryInput 
-        // };
-
-        // entries.Add(newEntry); //add the new entry to the list            
-        
-
-        // Console.WriteLine("\n\nTEST this, pet, etc.");
+        while (true)
+        {
+            animation.MenuIO(petList);
+            
+            Console.WriteLine("\nDo you wnat to interact with another pet? ");
+            string continueChoice = Console.ReadLine().ToLower();
+            if (continueChoice != "y")
+            {
+                break;
+            }
+        }
          
     } //end main
 
