@@ -2,20 +2,24 @@ using System;
 
 public class Pet
 {
-    protected string _name;
-    protected string _petType;
-    protected string _color;
-    protected string _description;
-    protected int _numInteractions;
-    protected int _score;
-    protected int _currentPoints;
-
-    //set Lists to private so they can't be changed
+    //set Lists to private so they can't be changed badly by accident in derived classes
     private List<string> _movements;
     private List<string> _interactions;
     private List<string> _bodyFeatures;
     private List<string> _vocalizations;
-    private int _frstInteractionPoints = 10;
+    
+
+    //can override in derived classes
+    protected string _name;
+    protected string _petType;
+    protected string _color;
+    protected int _score;   
+    protected int _currentPoints;
+    protected int _numInteractions; 
+    protected int _minInteractionPoints = 10;
+
+
+    //internal private variables
     private Random rand = new Random();
     
 
@@ -26,7 +30,7 @@ public class Pet
         _interactions = new List<string> {"watch"};
         _bodyFeatures = new List<string> {"eyes", "head"};
         _vocalizations = new List<string> {""};  //none is default  
-        _score = 0;
+        _score = 0; //cumulative score for pet
         _numInteractions = 0;
         _currentPoints = 0;      
     }
@@ -35,7 +39,7 @@ public class Pet
         get => _color;
     }
 
-    public string Petype
+    public string Type
     {
         get => _petType;
     }
@@ -111,25 +115,36 @@ public class Pet
 
     protected void ReplaceVocalizations(string[] strArray)
     {
-        _vocalizations.AddRange(strArray.ToList());
+        _vocalizations = strArray.ToList();
     }
 
     protected void ReplaceVocalizations(List<string> strList)
     {
-        _vocalizations.AddRange(strList);
+        _vocalizations = strList;
     }
 
-    public int InteractForPoints()
-    {
-        _currentPoints = _frstInteractionPoints;
+    public int InteractForPoints()  {   //Computes current points, total score, and num interactions
+        _currentPoints = _minInteractionPoints; 
         _score += _currentPoints;
         _numInteractions++;
         return _score;
     }
-   
-    public virtual string GetPetInfo()
+
+    public string GetPetInfo()
     {
-        return $"Your pet's name is {_name}, it is a {_petType}, and it is {_color}.";
+        return $"{_name} is a {_petType}, and is {_color}.";
+    }
+
+
+
+    //can override in derived classes
+    public virtual string Speak(){  //randomly pet speaks; can override in derived classes
+        int randomNum = rand.Next(_vocalizations.Count);
+        return _vocalizations[randomNum];
+    }
+
+    public virtual string Happy(){  //can override for each pet type depending on it's abilities
+        return "Your " + _petType + " is smiling";  ////e.g. "Your dog is " + Happy() = Your dog is smiling
     }
 
 }

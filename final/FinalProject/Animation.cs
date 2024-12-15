@@ -20,6 +20,16 @@ public class Animation
         Console.WriteLine();    //empty line
     }  //end output
 
+     public void InteractWithPet(Pet pet){
+        //this allows you to interact with a chosen pet one time
+        
+        PauseWithSpinner(3);
+        GetInteraction(pet.Interactions);
+        pet.InteractForPoints();
+        Console.Write($"You earned {pet.CurrentPoints} points.");
+        GetPoints(pet);
+    }
+
     public void GetInteraction(List<string> interactions){
         int iChosen;
         Console.WriteLine();    //empty line
