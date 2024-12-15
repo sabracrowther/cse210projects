@@ -1,0 +1,4 @@
+0
+Simple:go to bed|go to bed now|50|0|False
+Eternal:sleep|sleep forever|1000|0
+Checklist:get lots of naps|take lots of naps|30|0|False|300|50|0
