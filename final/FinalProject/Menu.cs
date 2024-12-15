@@ -149,7 +149,7 @@ public class Menu{
         }
         Console.WriteLine();    //empty line
         GetTotalPoints();
-        animation.PauseWithSpinner(5);        
+        animation.PauseWithSpinner(9);        
 
         return iSelect;
 

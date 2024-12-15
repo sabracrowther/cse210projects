@@ -3,7 +3,7 @@ using System;
 public class Hamster : Pet
 {
     private string[] strMovement = ["run", "sleep"];
-    private List<string> interactions = new List<string> {"pet", "play with them", "watch them", "feed them"};
+    private List<string> interactions = new List<string> {"pet", "play with them", "feed them"};
     private List<string> vocalizations = new List<string> {"squeak"};
     private List<string> bodyFeatures = new List<string> {"feet", "fur", "tail"};
 

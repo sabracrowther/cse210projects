@@ -4,7 +4,6 @@ public class Animation
 {
     //string makeNoise = "";
     private string[] _clockAnimationString = {"|", "/", "-", "\\", "|", "-", "\\"};
-    private Random randSpeak = new Random();
     
     public Animation()
     {
@@ -22,7 +21,7 @@ public class Animation
 
      public void InteractWithPet(Pet pet){
         //this allows you to interact with a chosen pet one time
-        
+        Console.WriteLine(pet.Name.ToUpper() + " says " + pet.Speak() + "!");
         PauseWithSpinner(3);
         GetInteraction(pet.Interactions);
         pet.InteractForPoints();
@@ -45,6 +44,7 @@ public class Animation
         //output choice
         Console.WriteLine("\nYou chose to " + interactions[iChosen].ToString() + ".");
         Console.WriteLine("You just made your pet very happy!");
+
         
     } //end output
 
@@ -96,12 +96,6 @@ public class Animation
         Console.WriteLine();
     }
     
-    public string RandomTalkBack(List<string> vocalizations)
-    {
-        int randomNum = randSpeak.Next(vocalizations.Count);
-        return vocalizations[randomNum];
-    }
-
     public void MenuIO(List<Pet> pets)
     {
         ListOfPets(pets);
@@ -109,11 +103,10 @@ public class Animation
         int petChoice = int.Parse(Console.ReadLine()) -1;
 
         Pet selectedPet = pets[petChoice];
-        //makeNoise = animation.RandomTalkBack(dog.Vocalizations);
-        //Console.WriteLine($"\n'{makeNoise}' - {dog.GetPetInfo()}");
         Console.WriteLine("\n" + selectedPet.GetPetInfo());
         PauseWithSpinner(3);
         GetInteraction(selectedPet.Interactions);
+        selectedPet.Happy();
         selectedPet.InteractForPoints();
         Console.WriteLine($"You earned {selectedPet.CurrentPoints} points.");
         GetPoints(selectedPet);
